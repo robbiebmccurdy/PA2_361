@@ -1,16 +1,30 @@
-# This is a sample Python script.
+import numpy as NP
+from threading import Thread
+from numpy import random
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+print("This program runs adding and subtracting of two arrays on two different threads. \n")
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def addVectors(A, B):
+    print("Original Array A: ", A, "\n", "Original Array B: ", B, "\n")
+    addRes = NP.add(A, B)
+    print("Result of Addition of A and B: ", addRes, " \n")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+def subVectors(A, B):
+    print("Original Array A: ", A, "\n", "Original Array B: ", B, "\n")
+    subRes = NP.subtract(A, B)
+    print("Result of Subtraction of A and B: ", subRes, " \n")
+
+
+x = random.randint(100, size=5)
+y = random.randint(100, size=5)
+
+t1 = Thread(target=addVectors, args=(x, y))
+t2 = Thread(target=subVectors, args=(x, y))
+
+t1.start()
+t2.start()
+
+t1.join()
+t2.join()
